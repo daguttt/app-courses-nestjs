@@ -8,6 +8,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
   const config = new DocumentBuilder()
     .setTitle('Courses API Documentation')
+    .addBearerAuth()
     .addTag('videos')
     .addTag('courses')
     .addTag('awards')
