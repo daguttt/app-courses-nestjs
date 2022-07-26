@@ -1,6 +1,7 @@
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { json } from 'express';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
@@ -14,6 +15,7 @@ async function bootstrap() {
   // ENV
   console.log({ port: process.env.PORT });
 
+  // Validations
   app.useGlobalPipes(new ValidationPipe());
 
   // Versioning
@@ -22,6 +24,10 @@ async function bootstrap() {
     defaultVersion: '1',
   });
 
+  // File uploading limit
+  app.use(json({ limit: '60mb' }));
+
+  // OpenAPI - Swagger
   const config = new DocumentBuilder()
     .setTitle('Courses API Documentation')
     .addBearerAuth()
@@ -32,6 +38,7 @@ async function bootstrap() {
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs-api', app, document);
+
   await app.listen(3000);
 }
 bootstrap();
