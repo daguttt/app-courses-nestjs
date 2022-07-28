@@ -6,6 +6,8 @@ import {
   Patch,
   Param,
   Delete,
+  HttpException,
+  HttpStatus,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CoursesService } from './courses.service';
@@ -19,6 +21,12 @@ export class CoursesController {
 
   @Post()
   create(@Body() createCourseDto: CreateCourseDto) {
+    const { price } = createCourseDto;
+    if (price)
+      throw new HttpException(
+        'El precio es demasiado alto',
+        HttpStatus.FORBIDDEN,
+      );
     return this.coursesService.create(createCourseDto);
   }
 
