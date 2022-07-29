@@ -8,7 +8,7 @@ import {
   Delete,
   HttpException,
   HttpStatus,
-  ParseIntPipe,
+  // ParseIntPipe,
 } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { CoursesService } from './courses.service';

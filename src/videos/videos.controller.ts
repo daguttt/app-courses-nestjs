@@ -6,15 +6,19 @@ import {
   Patch,
   Param,
   Delete,
+  UseInterceptors,
   // UsePipes,
   // ValidationPipe,
 } from '@nestjs/common';
+import { ApiTags } from '@nestjs/swagger';
+import { LoggerInterceptor } from 'src/utils/logger.interceptor';
+
 import { VideosService } from './videos.service';
 import { CreateVideoDto } from './dto/create-video.dto';
 import { UpdateVideoDto } from './dto/update-video.dto';
-import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('videos')
+@UseInterceptors(LoggerInterceptor)
 @Controller('videos')
 // @UsePipes(new ValidationPipe())
 export class VideosController {
